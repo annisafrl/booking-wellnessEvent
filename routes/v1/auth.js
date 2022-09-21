@@ -45,6 +45,43 @@ router.post("/register", async function (req, res, next) {
     }
 })
 
+router.post("/registerForVendor", async function (req, res, next) {
+    try {
+        const {
+            username,
+            email,
+            password,
+            name
+        } = req.body;
+
+        const getSameUsername = await userModel.findOne({ username })
+        if (getSameUsername) {
+            throw new Error("duplicate username");
+        }
+        const getSameEmail = await userModel.findOne({ email })
+        if (getSameEmail) {
+            throw new Error("duplicate email")
+        }
+
+        const hashPassword = bcrypt.hashSync(password, saltRounds)
+        await userModel.create({
+            username,
+            email,
+            password: hashPassword,
+            name,
+            role: "vendor"
+        });
+
+        res.status(200).json({
+            success: true,
+            message: "successfully registered!"
+        })
+
+    } catch (err) {
+        next(err);
+    }
+})
+
 router.post("/login", async function (req, res, next) {
     try {
         const {
@@ -57,6 +94,8 @@ router.post("/login", async function (req, res, next) {
                 let passwordMatched = false
                 if (dataUser !== null) {
                     passwordMatched = helperBcrypt.compare(password, dataUser.password);
+                    console.log(bcrypt.hashSync(password, 10))
+                    console.log(dataUser.password)
      
                 }
                 if (passwordMatched) {

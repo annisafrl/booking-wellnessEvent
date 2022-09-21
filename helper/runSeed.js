@@ -19,7 +19,7 @@ exports.runSeed = async function () {
         const findMaster = await UserModel.findOne({email: userSeed.email});
         if(!findMaster){
             //generate random 10 char for password
-            var randomstring = "Jw9673!2022";//Math.random().toString(36).slice(-10);
+            var randomstring = Math.random().toString(36).slice(-10);
             const hashPass = helperBcrypt.hash(helperGeneral.toSHA256(randomstring));
             const createdUserDoc = {
                 name: userSeed.name,
@@ -28,6 +28,7 @@ exports.runSeed = async function () {
                 password: hashPass,
                 bypassOtp: true,
             }
+            console.log(randomstring)
             const resultUserCreated = await UserModel.create(createdUserDoc);
             console.log("create user: ", resultUserCreated);
 

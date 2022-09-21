@@ -8,7 +8,7 @@ const config = {
         dbMongoString: "mongodb://127.0.0.1:27017/booking-wellnessEvent",
         SECRETJWT: "TESTLOCAL5",
         EXPHOURJWT: 4,
-        CLIENT_URL: "http://localhost:3000"
+        CLIENT_URL: "http://localhost:3000",
 
     },
 
