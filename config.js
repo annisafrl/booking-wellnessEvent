@@ -7,6 +7,7 @@ const config = {
         PORT: env_port,
         dbMongoString: "mongodb://127.0.0.1:27017/booking-wellnessEvent",
         SECRETJWT: "TESTLOCAL5",
+        MASTEREMAIL: "annisafirlia1@gmail.com",
         EXPHOURJWT: 4,
         CLIENT_URL: "http://localhost:3000",
 
